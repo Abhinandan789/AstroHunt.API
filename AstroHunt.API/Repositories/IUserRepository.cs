@@ -13,5 +13,14 @@ namespace AstroHunt.API.Repositories
         Task<User?> GetUserByIdAsync(int userId);
         Task<bool> SaveChangesAsync();
 
+
+        Task<List<WatchlistItem>> GetWatchlistAsync(int userId);
+        Task AddWatchlistItemAsync(WatchlistItem item);
+
+
+        Task<WatchlistItem?> GetWatchlistItemByIdAsync(int itemId);
+        Task<bool> DeleteWatchlistItemAsync(WatchlistItem item);
+
+
     }
 }

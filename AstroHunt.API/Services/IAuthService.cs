@@ -10,5 +10,13 @@ namespace AstroHunt.API.Services
         Task<UserProfileDto?> GetUserProfileAsync(int userId);
         Task<bool> UpdateUserProfileAsync(int userId, UserProfileDto profileDto);
 
+
+        Task<List<WatchlistItemDto>> GetWatchlistAsync(int userId);
+        Task AddWatchlistItemAsync(int userId, AddWatchlistItemDto dto);
+
+
+        Task<bool> DeleteWatchlistItemAsync(int userId, int itemId);
+
+
     }
 }

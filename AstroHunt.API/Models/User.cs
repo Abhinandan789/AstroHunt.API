@@ -15,5 +15,10 @@
         public string? Bio {  get; set; }
 
         public string? profileImageUrl { get; set; }
+
+
+        // 🔗 One user ➝ many watchlist items
+        public List<WatchlistItem> Watchlist { get; set; } = new();
+
     }
 }

@@ -38,5 +38,32 @@ namespace AstroHunt.API.Repositories
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<List<WatchlistItem>> GetWatchlistAsync(int userId)
+        {
+            return await _context.WatchlistItems
+                .Where(item => item.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task AddWatchlistItemAsync(WatchlistItem item)
+        {
+            await _context.WatchlistItems.AddAsync(item);
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task<WatchlistItem?> GetWatchlistItemByIdAsync(int itemId)
+        {
+            return await _context.WatchlistItems.FindAsync(itemId);
+        }
+
+        public async Task<bool> DeleteWatchlistItemAsync(WatchlistItem item)
+        {
+            _context.WatchlistItems.Remove(item);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+
     }
 }

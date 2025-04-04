@@ -3,6 +3,7 @@ using AstroHunt.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AstroHunt.API.Migrations
 {
     [DbContext(typeof(AstroHuntDbContext))]
-    partial class AstroHuntDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250404100826_AddWatchlistItems")]
+    partial class AddWatchlistItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

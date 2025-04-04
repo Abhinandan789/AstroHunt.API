@@ -135,5 +135,48 @@ namespace AstroHunt.API.Services
 
             return await _userRepository.SaveChangesAsync();
         }
+
+
+
+        //watchlist 
+        public async Task<List<WatchlistItemDto>> GetWatchlistAsync(int userId)
+        {
+            var items = await _userRepository.GetWatchlistAsync(userId);
+
+            return items.Select(item => new WatchlistItemDto
+            {
+                Id = item.Id,
+                Title = item.Title,
+                Type = item.Type,
+                Description = item.Description,
+                ImageUrl = item.ImageUrl
+            }).ToList();
+        }
+
+        public async Task AddWatchlistItemAsync(int userId, AddWatchlistItemDto dto)
+        {
+            var item = new WatchlistItem
+            {
+                Title = dto.Title,
+                Type = dto.Type,
+                Description = dto.Description,
+                ImageUrl = dto.ImageUrl,
+                UserId = userId
+            };
+
+            await _userRepository.AddWatchlistItemAsync(item);
+        }
+
+        public async Task<bool> DeleteWatchlistItemAsync(int userId, int itemId)
+        {
+            var item = await _userRepository.GetWatchlistItemByIdAsync(itemId);
+
+            if (item == null || item.UserId != userId)
+                return false; // Either doesn't exist or doesn't belong to the user
+
+            return await _userRepository.DeleteWatchlistItemAsync(item);
+        }
+
+
     }
 }
