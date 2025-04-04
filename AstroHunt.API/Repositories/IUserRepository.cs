@@ -21,6 +21,13 @@ namespace AstroHunt.API.Repositories
         Task<WatchlistItem?> GetWatchlistItemByIdAsync(int itemId);
         Task<bool> DeleteWatchlistItemAsync(WatchlistItem item);
 
+        //for ADMIN
+        Task<List<User>> GetAllUsersAsync();
+
+        Task<List<WatchlistSummaryDto>> GetWatchlistSummaryAsync();
+
+
+
 
     }
 }

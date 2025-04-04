@@ -65,5 +65,25 @@ namespace AstroHunt.API.Repositories
         }
 
 
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public async Task<List<WatchlistSummaryDto>> GetWatchlistSummaryAsync()
+        {
+            return await _context.WatchlistItems
+                .GroupBy(item => item.Title)
+                .Select(group => new WatchlistSummaryDto
+                {
+                    Title = group.Key,
+                    WatchlistCount = group.Count()
+                })
+                .OrderByDescending(x => x.WatchlistCount)
+                .ToListAsync();
+        }
+
+
+
     }
 }

@@ -16,6 +16,8 @@
 
         public string? profileImageUrl { get; set; }
 
+        public string Role { get; set; } = "User";
+
 
         // 🔗 One user ➝ many watchlist items
         public List<WatchlistItem> Watchlist { get; set; } = new();

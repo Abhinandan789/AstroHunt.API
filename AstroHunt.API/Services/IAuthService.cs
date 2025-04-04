@@ -4,7 +4,7 @@ namespace AstroHunt.API.Services
 {
     public interface IAuthService
     {
-        Task<string> RegisterUserAsync(UserDto request);
+        Task<string> RegisterUserAsync(RegisterDto request);
         Task<string> LoginUserAsync(LoginDto request);
 
         Task<UserProfileDto?> GetUserProfileAsync(int userId);
@@ -16,6 +16,13 @@ namespace AstroHunt.API.Services
 
 
         Task<bool> DeleteWatchlistItemAsync(int userId, int itemId);
+
+
+        //for ADMIN
+        Task<List<UserDto>> GetAllUsersAsync();
+
+        Task<List<WatchlistSummaryDto>> GetWatchlistSummaryAsync();
+
 
 
     }

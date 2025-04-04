@@ -20,7 +20,7 @@ namespace AstroHunt.API.Services
             _userRepository = userRepository;
         }
 
-        public async Task<string> RegisterUserAsync(UserDto request)
+        public async Task<string> RegisterUserAsync(RegisterDto request)
         {
             // Check if user exists
             if (await _userRepository.UserExistsByEmailAsync(request.Email))
@@ -89,10 +89,13 @@ namespace AstroHunt.API.Services
         {
             var claims = new[]
             {
-        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-        new Claim(ClaimTypes.Name, user.Username),
-        new Claim(ClaimTypes.Email, user.Email)
-    };
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role),
+
+            };
+
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_is_a_super_secure_jwt_key_for_astrohunt_application_1234567890"));
 
@@ -175,6 +178,28 @@ namespace AstroHunt.API.Services
                 return false; // Either doesn't exist or doesn't belong to the user
 
             return await _userRepository.DeleteWatchlistItemAsync(item);
+        }
+
+
+
+        public async Task<List<UserDto>> GetAllUsersAsync()
+        {
+            var users = await _userRepository.GetAllUsersAsync();
+
+            return users.Select(user => new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role,
+                Bio = user.Bio,
+                ProfileImageUrl = user.profileImageUrl
+            }).ToList();
+        }
+
+        public async Task<List<WatchlistSummaryDto>> GetWatchlistSummaryAsync()
+        {
+            return await _userRepository.GetWatchlistSummaryAsync();
         }
 
 

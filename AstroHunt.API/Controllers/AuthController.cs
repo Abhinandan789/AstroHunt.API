@@ -17,7 +17,7 @@ namespace AstroHunt.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserDto request)
+        public async Task<IActionResult> Register(RegisterDto request)
         {
             var result = await _authService.RegisterUserAsync(request);
 
